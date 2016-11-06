@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>Zzr blog</title><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/css/normalize.css" type="text/css"><link rel="stylesheet" href="/css/main.css" type="text/css"><link rel="stylesheet" href="/css/unit.css" type="text/css"><link rel="stylesheet" href="/css/markdown.css" type="text/css"></head><body><!--if lte IE 8p.browser-upgrade
+  | &#x60A8;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x7248;&#x672C;&#x90FD;&#x8001;&#x7684;&#x6389;&#x7259;&#x5566;&#xFF0C;&#x8BF7;&#x5230;
+  a(href='http://browsehappy.com') &#x8FD9;&#x91CC;
+  | &#x66F4;&#x65B0;&#xFF0C;&#x4EE5;&#x83B7;&#x53D6;&#x6700;&#x4F73;&#x4F53;&#x9A8C;--><section class="sidebar"><div class="header"><img src="/img/sidebar-brand.jpg" alt="brand" class="header-brand"><h1 class="header-name">Zzr&#x7684;&#x535A;&#x5BA2;</h1></div><nav class="main"><ul><li class="active"><a href="/" title="博客首页"><i class="iconfont">&#xE600;</i><span>home</span></a></li><li><a href="/demo" title="小的demo"><i class="iconfont">&#xE603;</i><span>demo</span></a></li><li><a href="#" title="关于"><i class="iconfont">&#xE612;</i><span>about</span></a></li><li><a href="https://github.com/Zhangzirui/" title="我的github"><i class="iconfont">&#xE611;</i><span>github</span></a></li></ul></nav><div style="display: none" class="menu"><i class="iconfont menu-icon">&#xE606;</i><ul style="display: none"><li class="active"><a href="#" title="博客首页"><i class="iconfont">&#xE600;</i><span>home</span></a></li><li><a href="#" title="小的demo"><i class="iconfont">&#xE603;</i><span>demo</span></a></li><li><a href="#" title="关于"><i class="iconfont">&#xE612;</i><span>about</span></a></li><li><a href="#" title="我的github"><i class="iconfont">&#xE611;</i><span>github</span></a></li></ul></div></section><div class="container"><div class="main"><article class="markdown"></p>
+
+<h2>如何将github仓库中的项目效果展现在github pages中</h2>
+
+<h3>前言</h3>
+
+<blockquote><p>刚刚做完这个博客的整体框架，然后我想在demo页面中展示我已经完成或者将来将要完成的项目，那么问题来了...。</p></blockquote>
+
+<p>本来我以为很简单，却发现半天没办法，上网查的说明都很笼统或者零零碎碎，最后花了大半天时间弄明白（目前还不确定是不是一个好的办法 +_+ ），总归也是解决了，现在总结一下。</p>
+
+<h3>正文</h3>
+
+<h4>找到你要展现效果的仓库</h4>
+
+<p><img alt="" src="http://cezrh.img47.wal8.com/img47/544629_20160502104557/146215724207.png"/></p>
+
+<p>然后点击Settings，在接下来的页面中往下翻，可以看到</p>
+
+<p><img alt="" src="http://cezrh.img47.wal8.com/img47/544629_20160502104557/146215724263.png"/></p>
+
+<p>点击Launch automatic page generator,自动生成page页面，往下翻可以看到</p>
+
+<p><img alt="" src="http://cezrh.img47.wal8.com/img47/544629_20160502104557/146215724311.png"/></p>
+
+<p>然后点击continue to layouts</p>
+
+<p><img alt="" src="http://cezrh.img47.wal8.com/img47/544629_20160502104557/146215724364.png"/></p>
+
+<p>点击publish,就自动发布了。</p>
+
+<p>接着在http://zhangzirui.github.io/learn-from-baidu-ife/就可以访问刚刚发布的页面了。当然zhangzirui和learn-from-baidu-ife要换成你自己的username与仓库名称。网上有的说法是要等十多分钟才能看到，可是我试的时候是立马就能看到了，估计看网速吧，反正出现了404也不要着急，慢慢等着就好。</p>
+
+<p>到了这一步后，我们已经完成了仓库的github pages部署，可是童鞋们可以发现只有这个http://zhangzirui.github.io/learn-from-baidu-ife/页面能看到，而learn-from-baidu-ife仓库下的项目文件还是没办法展现出来，依旧是404。那么我们进行下一步。</p>
+
+<h4>为仓库建立分支</h4>
+
+<p>先进入到你定义的存放github仓库的文件中，克隆远程仓库到本地</p>
+
+<pre><code>git clone http://your_url #如下图</code></pre>
+
+<p><img alt="" src="http://cezrh.img47.wal8.com/img47/544629_20160502104557/146215723962.png"/></p>
+
+<p>然后</p>
+
+<pre><code>cd learn-from-baidu-ife</code></pre>
+
+<p>接着创建并生成分支</p>
+
+<pre><code>git checkout -b gh-pages origin/gh-pages</code></pre>
+
+<p><img alt="" src="http://cezrh.img47.wal8.com/img47/544629_20160502104557/146215724017.png"/></p>
+
+<p>然后这个分支里面就存在了http://zhangzirui.github.io/learn-from-baidu-ife/这个页面的样式，咱们这时候需要把它给删除，然后换成自己的。</p>
+
+<pre><code>git rm -rf .</code></pre>
+
+<p><img alt="" src="http://cezrh.img47.wal8.com/img47/544629_20160502104557/146215724063.png"/></p>
+
+<p>删完之后呢，你可以把你这个仓库文件再次下载下来，当然这次就不是分支了，这次下载你需要展示的项目代码，把它放入这个已经被删干净的分支文件夹。（这几步我都是直接在界面上操作的 o(╯□╰)o ）</p>
+
+<p>放进去后呢，接着</p>
+
+<pre><code>git add .
+git commit -m &quot;add files&quot;</code></pre>
+
+<p>然后提交</p>
+
+<pre><code>git push origin gh-pages</code></pre>
+
+<p><img alt="" src="http://cezrh.img47.wal8.com/img47/544629_20160502104557/146215724153.png"/></p>
+
+<p>就OK拉</p>
+
+<h4>查看效果</h4>
+
+<p>进入你的github</p>
+
+<p><img alt="" src="http://cezrh.img47.wal8.com/img47/544629_20160502104557/146215724419.png"/></p>
+
+<p>可以看到中间的branches前面变成了2，在第一步刚刚生成pages时，其实这个就变成了2 branches。点击左边的Branch:master,出现下拉列表，就可以选择分支gh-pages。点击之后就可以发现分支文件中就存在了你push上来的项目文件，没push之前这个地方本来存放的是自动生成的页面样式。</p>
+
+<p>其实总体下来，就是在你的仓库中创建一个gh-pages分支，然后把你仓库的文件copy到分支中.</p>
+
+<p>然后就可以看到项目的效果了，我的这个是baidu-ife的小作业
+<a href="http://zhangzirui.github.io/learn-from-baidu-ife/spring/task0001/mywork/index.html">http://zhangzirui.github.io/learn-from-baidu-ife/spring/task0001/mywork/index.html</a></p>
+
+<p><img alt="" src="http://cezrh.img47.wal8.com/img47/544629_20160502104557/146215723681.png"/></p>
+
+<h3>结尾</h3>
+
+<p>怎么样，是不是明白了怎么弄了。</p>
+
+<p>如果本文有错误或者你有更好的办法，你可以在评论或者邮箱(411489774@qq.com)中告诉我。</p>
+
+<p>如果你想转载这篇文章到你博客中，希望你能注明一下此文的博客链接<a href="http://zhangzirui.github.io/pages/Document-1">http://zhangzirui.github.io/pages/Document-1</a>，谢谢！</p><div class="pay"><div class="pay-content"><p>如果这篇文章对你很有帮助，你可以犒劳一下WO</p><a class="pay-btn">打赏</a></div></div></article></div><div class="elevator"><ul><li id="goTop" title="返回顶部"><i class="iconfont">&#xE605;</i></li></ul></div><footer><p class="copyright">Copyright &copy; Zhangzirui</p></footer></div><script type="text/javascript" src="/js/require.js" data-main="../../js/main.js"></script></body></html>
