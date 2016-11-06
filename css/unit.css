@@ -1,0 +1,130 @@
+/**
+ * Created by Administrator on 2016/4/29 0029.
+ */
+
+/*================
+    字体图标设置
+  ================*/
+
+@font-face {
+    font-family: 'iconfont';  /* project id："88953" */
+    src: url('//at.alicdn.com/t/font_dbaglrscs8wr8uxr.eot');
+    src: url('//at.alicdn.com/t/font_dbaglrscs8wr8uxr.eot') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_dbaglrscs8wr8uxr.woff') format('woff'),
+    url('//at.alicdn.com/t/font_dbaglrscs8wr8uxr.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_dbaglrscs8wr8uxr.svg#iconfont') format('svg');
+}
+
+
+
+.iconfont {
+    font-family:"iconfont" !important;
+    font-size:16px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*================
+    气泡组件样式
+  ================*/
+
+.tooltip{
+    position: fixed;
+    font-size: 18px;
+    padding: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 3px;
+    color: #000000;
+    text-align: center;
+    background-color: #eeeeee;
+    box-sizing: border-box;
+}
+
+.tooltip-l:after{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-color: transparent transparent transparent #eeeeee;
+    left: 100%;
+    top: 10%;
+}
+.tooltip-b:after{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-color: transparent transparent #eeeeee transparent;
+    left: 10%;
+    top: -14px;
+}
+.tooltip-r:after{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-color: transparent #eeeeee transparent transparent;
+    left: -14px;
+    top: 10%;
+}
+.tooltip-t:after{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-color: #eeeeee transparent transparent transparent;
+    left: 10%;
+    top: 100%;
+}
+
+.tooltip .title{
+    margin: 0 0 1rem 0;
+    text-align: center;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    color: #8d8d8d;
+}
+
+.tooltip .tip-close{
+    text-align: right;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+/*================
+    分页组件样式
+  ================*/
+
+#pagination a,#pagination span{
+    display: inline-block;
+    padding: 4px 6px;
+    line-height: 24px;
+    font-size: 14px;
+    border: 1px solid #dddddd;
+    color: #4cae4c;
+    text-decoration: none;
+}
+
+#pagination a:hover{
+    background-color: #ededed;
+}
+
+#pagination .pre{
+
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    margin-right: 5px;
+}
+
+#pagination .next{
+
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-left: 5px;
+}
