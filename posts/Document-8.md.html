@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>Zzr blog</title><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/public/css/normalize.css" type="text/css"><link rel="stylesheet" href="/public/css/main.css" type="text/css"><link rel="stylesheet" href="/public/css/unit.css" type="text/css"><link rel="stylesheet" href="/public/css/markdown.css" type="text/css"></head><body><!--if lte IE 8p.browser-upgrade
+  | &#x60A8;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x7248;&#x672C;&#x90FD;&#x8001;&#x7684;&#x6389;&#x7259;&#x5566;&#xFF0C;&#x8BF7;&#x5230;
+  a(href='http://browsehappy.com') &#x8FD9;&#x91CC;
+  | &#x66F4;&#x65B0;&#xFF0C;&#x4EE5;&#x83B7;&#x53D6;&#x6700;&#x4F73;&#x4F53;&#x9A8C;--><section class="sidebar"><div class="header"><img src="/public/img/sidebar-brand.jpg" alt="brand" class="header-brand"><h1 class="header-name">Zzr&#x7684;&#x535A;&#x5BA2;</h1></div><nav class="main"><ul><li class="active"><a href="/" title="博客首页"><i class="iconfont">&#xE600;</i><span>home</span></a></li><li><a href="/demo" title="小的demo"><i class="iconfont">&#xE603;</i><span>demo</span></a></li><li><a href="#" title="关于"><i class="iconfont">&#xE612;</i><span>about</span></a></li><li><a href="https://github.com/Zhangzirui/" title="我的github"><i class="iconfont">&#xE611;</i><span>github</span></a></li></ul></nav><div style="display: none" class="menu"><i class="iconfont menu-icon">&#xE606;</i><ul style="display: none"><li class="active"><a href="#" title="博客首页"><i class="iconfont">&#xE600;</i><span>home</span></a></li><li><a href="#" title="小的demo"><i class="iconfont">&#xE603;</i><span>demo</span></a></li><li><a href="#" title="关于"><i class="iconfont">&#xE612;</i><span>about</span></a></li><li><a href="#" title="我的github"><i class="iconfont">&#xE611;</i><span>github</span></a></li></ul></div></section><div class="container"><div class="main"><article class="markdown"></p>
+
+<h2>关于logistic算法</h2>
+
+<blockquote><p>学习了一段时间的机器学习，感觉有梯度下降算法，logistic算法，还有神经网络的基础——单层感知机和线性神经网络有一些共同点，可以互相帮助理解。于是乎，记录下来，让自己在写的同时理解的更加透彻。</p></blockquote>
+
+<h3>共同的迭代形式</h3>
+
+<p>在Andrew Ng的机器学习<a href="http://cs229.stanford.edu/notes/cs229-notes1.pdf">讲义notes1</a>中第16页开始就阐述了logistic算法的详细过程。让人觉得眼前一亮的是结果：
+&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/147107833483.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+
+<p>和随机梯度下降算法的迭代过程长得一模一样有没有，唯一不同的是在随机梯度下降算法中那个hypothese函数h是一个线性函数，是权重w和训练样本x的乘积。而在logistic函数中h是logistic函数。</p>
+
+<p>无独有偶，这个迭代算法同样也是线性神经网络中的LMS学习算法，一模一样，连函数h也是一样的。<a href="http://cs229.stanford.edu/notes/cs229-notes1.pdf">讲义notes1</a>中，在logistic算法后面紧接着介绍的感知机学习算法，也是一模一样的迭代公式。不一样的是函数h，这时候它被叫做了激活函数，准确的说是在权重和训练样本的乘积之上套了一个激活函数。</p>
+
+<p>接下来，我们具体看一下logistic算法。</p>
+
+<h3>logistic function</h3>
+
+<p>在机器学习<a href="http://cs229.stanford.edu/notes/cs229-notes1.pdf">讲义notes1</a>第16页给出了这个函数，如下：
+&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/147107833382.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+
+<p>我们可以看到，在大牛的讲义上说这个函数被叫做logistic函数或者sigmoid函数。一开始看到的时候是有一点不解的，明明这一部分是讲的logistic算法呀，提出一个叫logistic的函数很理所当然，可是这个sigmoid是个什么鬼。</p>
+
+<p>直到现在自己学习神经网络的时候，在BP神经网络模型推导的时候提到了这个函数，不过它的名字变成了单极性Sigmoid函数。</p>
+
+<p>这个函数有个很重要的推导，在logstic算法推导中起了很重要的作用，如下：
+&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/147107854916.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+
+<p>所以个人觉得这一点注意好了，logistic函数使用起来就和梯度下降函数没多少区别了，毕竟从本质上来说，logistic函数的迭代过程就是遵循随机梯度下降的规则。</p>
+
+<p>(完)</p><div class="pay"><div class="pay-content"><p>如果这篇文章对你很有帮助，你可以犒劳一下WO</p><a class="pay-btn">打赏</a></div></div></article></div><div class="elevator"><ul><li id="goTop" title="返回顶部"><i class="iconfont">&#xE605;</i></li></ul></div><footer><p class="copyright">Copyright &copy; Zhangzirui</p></footer></div><script type="text/javascript" src="/public/js/require.js" data-main="/public/js/main.js"></script></body></html>

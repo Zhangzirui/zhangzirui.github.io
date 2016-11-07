@@ -33,8 +33,9 @@ define(['unit'], function (unit) {
                 sidebarNav = sidebar.getElementsByClassName("main")[0],
                 directoryNode = document.createElement("div"),
                 navChange = document.createElement("p");
-
-            sidebarNav.style.left ="-100%";
+            if(window.innerWidth >= 880) {
+                sidebarNav.style.left ="-100%";
+            }
 
             directoryNode.className = "directory-content";
             directoryNode.style.transition = "all 0.5s linear";
@@ -47,14 +48,21 @@ define(['unit'], function (unit) {
             unit.generateDirectory(document.getElementsByClassName("markdown")[0]);
 
             unit.EventUnit.addHandler(sidebar.getElementsByClassName("change-btn")[0], 'click', function() {
-
-                if( sidebarNav.style.left == "-100%") {
+                if(sidebarNav.style.left == "-100%") {
                     sidebarNav.style.transition = "all 0.5s linear";     //如果在css中定义，那么页面加载的时候就会出现，导致效果不好
                     directoryNode.style.left = "-100%";
                     sidebarNav.style.left = "0";
                 }else {
                     sidebarNav.style.left = "-100%";
                     directoryNode.style.left = "0"
+                }
+            });
+
+            unit.EventUnit.addHandler(window, "resize", function() {
+                if(window.innerWidth < 880) {
+                    sidebarNav.style.left = "0";
+                }else {
+                    sidebarNav.style.left = "-100%";
                 }
 
             })

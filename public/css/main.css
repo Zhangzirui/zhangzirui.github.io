@@ -136,6 +136,43 @@ a:hover{
     color: #eeeeee;
 }
 
+/*    侧边栏中的文章目录（post页面中）    */
+
+.directory-content{
+    padding: 1rem 0 1rem 0.5rem;
+    overflow: auto;
+}
+
+.directory-content p{
+    line-height: 2.6rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.directory-content p:hover{
+    color: chartreuse;
+}
+
+.head1{
+    text-align: center;
+    font-size: 1.6rem;
+    display: none;   /*不显示一级标题*/
+}
+
+
+.head3{
+    text-indent: 2rem;
+}
+
+.head4{
+    text-indent: 3rem;
+}
+
+.head5{
+    text-indent: 4rem;
+}
+
 
 
 @media only screen and (min-width: 35.0625em) and (max-width: 55em){
@@ -163,6 +200,11 @@ a:hover{
     .sidebar .main li a i{
         font-size: 2rem;
         padding: 0;
+    }
+
+    .sidebar .nav-change,
+    .sidebar .directory-content{
+        display: none;
     }
 }
 
@@ -223,6 +265,10 @@ a:hover{
         background-color: rgba(0,0,0,0.1);
     }
 
+    .sidebar .nav-change,
+    .sidebar .directory-content{
+        display: none;
+    }
 }
 
 /**    主要内容    **/
@@ -246,7 +292,7 @@ a:hover{
 }
 
 .cat-tag{
-    width: 80%;
+    max-width: 80%;
     padding: 0 3rem;
 }
 
@@ -255,7 +301,7 @@ a:hover{
     line-height: 2.8rem;
     font-size: 1.6rem;
     padding: 0 1rem;
-    margin: 0 1rem;
+    margin: 0 1rem 1rem;
     border: 1px solid #4cae4c;
 }
 
@@ -418,43 +464,6 @@ a:hover{
         margin-left: 2rem;
         font-size: 1.2rem;
     }
-}
-
-/*    文章目录（post页面中）    */
-
-.directory-content{
-    padding: 1rem 0 1rem 0.5rem;
-    overflow: auto;
-}
-
-.directory-content p{
-    line-height: 2.6rem;
-    font-size: 1.4rem;
-    cursor: pointer;
-    color: #ffffff;
-}
-
-.directory-content p:hover{
-    color: chartreuse;
-}
-
-.head1{
-    text-align: center;
-    font-size: 1.6rem;
-    display: none;   /*不显示一级标题*/
-}
-
-
-.head3{
-    text-indent: 2rem;
-}
-
-.head4{
-    text-indent: 3rem;
-}
-
-.head5{
-    text-indent: 4rem;
 }
 
 /*    文章底部（post页面打赏）    */

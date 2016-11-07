@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>Zzr blog</title><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/public/css/normalize.css" type="text/css"><link rel="stylesheet" href="/public/css/main.css" type="text/css"><link rel="stylesheet" href="/public/css/unit.css" type="text/css"><link rel="stylesheet" href="/public/css/markdown.css" type="text/css"></head><body><!--if lte IE 8p.browser-upgrade
+  | &#x60A8;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x7248;&#x672C;&#x90FD;&#x8001;&#x7684;&#x6389;&#x7259;&#x5566;&#xFF0C;&#x8BF7;&#x5230;
+  a(href='http://browsehappy.com') &#x8FD9;&#x91CC;
+  | &#x66F4;&#x65B0;&#xFF0C;&#x4EE5;&#x83B7;&#x53D6;&#x6700;&#x4F73;&#x4F53;&#x9A8C;--><section class="sidebar"><div class="header"><img src="/public/img/sidebar-brand.jpg" alt="brand" class="header-brand"><h1 class="header-name">Zzr&#x7684;&#x535A;&#x5BA2;</h1></div><nav class="main"><ul><li class="active"><a href="/" title="博客首页"><i class="iconfont">&#xE600;</i><span>home</span></a></li><li><a href="/demo" title="小的demo"><i class="iconfont">&#xE603;</i><span>demo</span></a></li><li><a href="#" title="关于"><i class="iconfont">&#xE612;</i><span>about</span></a></li><li><a href="https://github.com/Zhangzirui/" title="我的github"><i class="iconfont">&#xE611;</i><span>github</span></a></li></ul></nav><div style="display: none" class="menu"><i class="iconfont menu-icon">&#xE606;</i><ul style="display: none"><li class="active"><a href="#" title="博客首页"><i class="iconfont">&#xE600;</i><span>home</span></a></li><li><a href="#" title="小的demo"><i class="iconfont">&#xE603;</i><span>demo</span></a></li><li><a href="#" title="关于"><i class="iconfont">&#xE612;</i><span>about</span></a></li><li><a href="#" title="我的github"><i class="iconfont">&#xE611;</i><span>github</span></a></li></ul></div></section><div class="container"><div class="main"><article class="markdown"></p>
+
+<h2>继承里面的坑</h2>
+
+<blockquote><p>在练习写组件的时候发现了一个有关继承的坑，准确的来说也是我的理解不透彻，没把<strong>组合继承和寄生式组合继承</strong>的真正区别弄明白，因而在此记录一下。</p></blockquote>
+
+<h3>组合继承</h3>
+
+<p>在《Javascript高级程序设计》一书中组合继承表述的是这样的意思：</p>
+
+<pre><code>	//父
+    function SuperType(name) {
+        this.name = name;
+        this.color = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
+    }
+
+    SuperType.prototype.sayName = function () {
+        alert(this.name);
+    };
+
+	//子
+    function SubType(name, age) {
+        SuperType.call(this, name);	//标记为(1)
+        this.age = age;
+    }
+
+    SubType.prototype = new SuperType();	//标记为(2)
+    SubType.prototype.constructor = SubType;
+    SubType.prototype.sayAge = function () {
+        alert(this.age);
+    }</code></pre>
+
+<p>这种方法主要就是两步，也就是我在上面程序中的标记<code>(1)</code>和<code>(2)</code>。<code>(1)</code>的作用是让子函数继承了父构造函数的属性，<code>(2)</code>的作用是将父构造函数实例化传给了子构造函数的原型。</p>
+
+<p>所以会有</p>
+
+<pre><code>var t1 = new SubType();
+console.log(t1.color);	//[&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;]
+console.log(t1.hasOwnProperty(&quot;name&quot;))	//true
+console.log(t1.hasOwnProperty(&quot;color&quot;))	//true
+console.log(t1.hasOwnProperty(&quot;age&quot;))	//true</code></pre>
+
+<p>而去掉<code>(1)</code>，其实也继承成功了，只是父构造函数里面的属性全部继承到了子构造函数的原型中，而不是像上面一样也继承到了属性中，如：</p>
+
+<pre><code>//去掉了(1)
+var t1 = new SubType(&quot;zzr&quot;, &quot;23&quot;);
+console.log(t1.color);	//[&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;]
+console.log(t1.hasOwnProperty(&quot;name&quot;))	//false
+console.log(t1.hasOwnProperty(&quot;color&quot;))	//false
+console.log(t1.hasOwnProperty(&quot;age&quot;))	//true</code></pre>
+
+<p>现在回到没去掉<code>(1)</code>的时候</p>
+
+<pre><code>console.log(SuperType.prototype)
+console.log(SubType.prototype)</code></pre>
+
+<p>在chome浏览器下出现下面的结果：</p>
+
+<p>&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/147701827316.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+
+<p>结果很正常，为什么我要拿出来说明呢，其实是为了和接下来要说的对比。</p>
+
+<h3>寄生式组合继承</h3>
+
+<p>寄生式组合继承与组合继承有一点不同，那就是寄生式组合继承把组合继承中的<code>(2)</code>换成了如下的程序。</p>
+
+<pre><code>//(2)变成了如下
+inheritPrototype(SubType, SuperType)
+
+//其中inheritPrototype函数为
+function inheritPrototype(subType, superType) {
+	var prototype = Object(superType.prototype);
+	prototype.constructor = subType;
+	subType.prototype = prototype;
+}</code></pre>
+
+<p>这样继承的好处是，父构造函数的属性不会再子构造函数里面在继承一遍了。</p>
+
+<p>同样进行如下的测试：</p>
+
+<pre><code>console.log(SuperType.prototype)
+console.log(SubType.prototype)</code></pre>
+
+<p>在chome浏览器下出现下面的结果：</p>
+
+<p>&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/147701827445.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+
+<p>在这样继承后，发现父构造函数和子构造函数的原型共用了。所以无论更改哪一个，另一个也同样变化。</p>
+
+<h2>总结</h2>
+
+<p>在《Javascript高级程序设计》书中关于寄生式组合继承的评价有这么一句话：<strong>“开发人员普遍认为寄生组合式继承是引用类型最理想的继承范式”</strong>。我当初也是看到了这句话，但却看的不仔细，单纯的理解成了寄生式组合继承就是最好的继承，所以凡是继承就应该用这个，结果在练习组件编写的时候让所有的组件都共用了同一个原型，全部乱套了。现在一看，书上明明说的是<strong>引用类型</strong>最理想的继承，还是自己当初没理解好。</p><div class="pay"><div class="pay-content"><p>如果这篇文章对你很有帮助，你可以犒劳一下WO</p><a class="pay-btn">打赏</a></div></div></article></div><div class="elevator"><ul><li id="goTop" title="返回顶部"><i class="iconfont">&#xE605;</i></li></ul></div><footer><p class="copyright">Copyright &copy; Zhangzirui</p></footer></div><script type="text/javascript" src="/public/js/require.js" data-main="/public/js/main.js"></script></body></html>
