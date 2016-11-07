@@ -9,8 +9,9 @@
 
 <h3>共同的迭代形式</h3>
 
-<p>在Andrew Ng的机器学习<a href="http://cs229.stanford.edu/notes/cs229-notes1.pdf">讲义notes1</a>中第16页开始就阐述了logistic算法的详细过程。让人觉得眼前一亮的是结果：
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/147107833483.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+<p>在Andrew Ng的机器学习<a href="http://cs229.stanford.edu/notes/cs229-notes1.pdf">讲义notes1</a>中第16页开始就阐述了logistic算法的详细过程。让人觉得眼前一亮的是结果：</p>
+
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/147107833483.png"/></p>
 
 <p>和随机梯度下降算法的迭代过程长得一模一样有没有，唯一不同的是在随机梯度下降算法中那个hypothese函数h是一个线性函数，是权重w和训练样本x的乘积。而在logistic函数中h是logistic函数。</p>
 
@@ -20,15 +21,17 @@
 
 <h3>logistic function</h3>
 
-<p>在机器学习<a href="http://cs229.stanford.edu/notes/cs229-notes1.pdf">讲义notes1</a>第16页给出了这个函数，如下：
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/147107833382.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+<p>在机器学习<a href="http://cs229.stanford.edu/notes/cs229-notes1.pdf">讲义notes1</a>第16页给出了这个函数，如下：</p>
+
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/147107833382.png"/></p>
 
 <p>我们可以看到，在大牛的讲义上说这个函数被叫做logistic函数或者sigmoid函数。一开始看到的时候是有一点不解的，明明这一部分是讲的logistic算法呀，提出一个叫logistic的函数很理所当然，可是这个sigmoid是个什么鬼。</p>
 
 <p>直到现在自己学习神经网络的时候，在BP神经网络模型推导的时候提到了这个函数，不过它的名字变成了单极性Sigmoid函数。</p>
 
-<p>这个函数有个很重要的推导，在logstic算法推导中起了很重要的作用，如下：
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/147107854916.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+<p>这个函数有个很重要的推导，在logstic算法推导中起了很重要的作用，如下：</p>
+
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/147107854916.png"/></p>
 
 <p>所以个人觉得这一点注意好了，logistic函数使用起来就和梯度下降函数没多少区别了，毕竟从本质上来说，logistic函数的迭代过程就是遵循随机梯度下降的规则。</p>
 

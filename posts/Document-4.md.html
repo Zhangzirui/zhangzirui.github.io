@@ -11,27 +11,35 @@
 
 <blockquote><p>markdown不好编辑公式,没办法，所有的公式只能粘图了</p></blockquote>
 
-<p>线性回归模型可以用公式表示为：
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/146381710162.png&quot; /&gt;&lt;/p&gt;
-其中n是变量的个数</p>
+<p>线性回归模型可以用公式表示为：</p>
+
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/146381710162.png"/></p>
+
+<p>其中n是变量的个数</p>
 
 <p>则回归模型与真实值之间的误差损失可以表示为</p>
 
-<p>&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/146381710222.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
-其中m是样本的个数</p>
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/146381710222.png"/></p>
+
+<p>其中m是样本的个数</p>
 
 <p>为了让这个回归模型更加可靠真实，就需要找出theta的值使误差损失最小，这样就有了梯度下降算法(gradient descent algorithm)。</p>
 
 <h3>批梯度下降算法(batch gradient descent)</h3>
 
-<p>为了找出合适的theta的值使误差损失最小，首先就要初始化theta，这个初始化是随机的，定它为0还是为1都行。然后通过下面的公式，反复迭代更新theta，直至找出合适的theta。
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629<em>20160502104557/146381889746.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
-其中alpha为迭代的速度，上式化简可得
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629</em>20160502104557/146381917252.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+<p>为了找出合适的theta的值使误差损失最小，首先就要初始化theta，这个初始化是随机的，定它为0还是为1都行。然后通过下面的公式，反复迭代更新theta，直至找出合适的theta。</p>
 
-<p>然后&lt;span id=&#39;jump&#39;&gt;梯度下降算法的核心&lt;/span&gt;就出现啦（具体的说是批梯度下降算法），
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/146381889877.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
-上程序(python实现，下同)</p>
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/146381889746.png"/></p>
+
+<p>其中alpha为迭代的速度，上式化简可得</p>
+
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/146381917252.png"/></p>
+
+<p>然后&lt;span id=&#39;jump&#39;&gt;梯度下降算法的核心&lt;/span&gt;就出现啦（具体的说是批梯度下降算法），</p>
+
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/146381889877.png"/></p>
+
+<p>上程序(python实现，下同)</p>
 
 <pre><code># -*- coding: utf-8 -*-
 &#39;&#39;&#39;
@@ -99,8 +107,9 @@ if __name__ == &quot;__main__&quot;:
     y_arr = bat.loadData(fileName2)  
     bat.batch(x_arr, y_arr) </code></pre>
 
-<p>其中输入的数据来自于<a href="http://openclassroom.stanford.edu/MainFolder/DocumentPage.php?course=MachineLearning&amp;doc=exercises/ex2/ex2.html">Stanford Exercise 2: Linear Regression</a>，结果图如下：
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/146986987107.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+<p>其中输入的数据来自于<a href="http://openclassroom.stanford.edu/MainFolder/DocumentPage.php?course=MachineLearning&amp;doc=exercises/ex2/ex2.html">Stanford Exercise 2: Linear Regression</a>，结果图如下：</p>
+
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/146986987107.png"/></p>
 
 <p>接着我想沿用这个程序试一试多元线性回归，数据来源于<a href="http://openclassroom.stanford.edu/MainFolder/DocumentPage.php?course=MachineLearning&amp;doc=exercises/ex3/ex3.html">Stanford Exercise 3</a>。该教程提出来数据预处理，因为x矩阵中两列的数据相差太大，会严重影响梯度下降算法的效率。</p>
 
@@ -190,13 +199,17 @@ if __name__ == &quot;__main__&quot;:
     y_arr = bat.loadData(fileName2)  
     bat.batch(x_arr, y_arr)   </code></pre>
 
-<p>结果图为：&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/146986987042.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+<p>结果图为：</p>
+
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/146986987042.png"/></p>
 
 <h3>随机梯度下降算法(stochastic gradient descent)</h3>
 
-<p>随机梯度下降算法其实是针对批梯度下降算法处理大规模数据计算量过大计算时间过长而做出的小改变。让我们看看随机梯度下降算法执行过程：
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629_20160502104557/146987081492.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
-与<a href="#jump">批梯度下降算法的过程</a>相比,批梯度算法是把所有的样本计算一遍后再进行一次theta迭代。而随机梯度下降算法是每计算一个训练样本就迭代一次，这样theta的迭代次数明显加快。当然这样也导致了随机梯度下降算法的计算精度不如批梯度算法。</p>
+<p>随机梯度下降算法其实是针对批梯度下降算法处理大规模数据计算量过大计算时间过长而做出的小改变。让我们看看随机梯度下降算法执行过程：</p>
+
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/146987081492.png"/></p>
+
+<p>与<a href="#jump">批梯度下降算法的过程</a>相比,批梯度算法是把所有的样本计算一遍后再进行一次theta迭代。而随机梯度下降算法是每计算一个训练样本就迭代一次，这样theta的迭代次数明显加快。当然这样也导致了随机梯度下降算法的计算精度不如批梯度算法。</p>
 
 <p>随机梯度下降的程序和批梯度的差不多，在这里就不贴出来了，想参考的童鞋可以到<a href="#">这里</a>下载。</p>
 
@@ -281,8 +294,9 @@ if __name__ == &quot;__main__&quot;:
     m = LinearRegression()
     m.l_r(f1, f2)</code></pre>
 
-<p>程序图如下：
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629<em>20160502104557/146994974665.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot;TEXT-ALIGN: center&quot; contentEditable=true&gt;&lt;img src=&quot;http://cezrh.img48.wal8.com/img48/544629</em>20160502104557/146995029106.png&quot; /&gt;&lt;br /&gt;&lt;/p&gt;</p>
+<p>程序图如下：</p>
+
+<p><img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/146994974665.png"/>
+<img alt="" src="http://cezrh.img48.wal8.com/img48/544629_20160502104557/146995029106.png"/></p>
 
 <p>(完)</p><div class="pay"><div class="pay-content"><p>如果这篇文章对你很有帮助，你可以犒劳一下WO</p><a class="pay-btn">打赏</a></div></div></article></div><div class="elevator"><ul><li id="goTop" title="返回顶部"><i class="iconfont">&#xE605;</i></li></ul></div><footer><p class="copyright">Copyright &copy; Zhangzirui</p></footer></div><script type="text/javascript" src="/public/js/require.js" data-main="/public/js/main.js"></script></body></html>
