@@ -61,8 +61,10 @@ define(['unit'], function (unit) {
             unit.EventUnit.addHandler(window, "resize", function() {
                 if(window.innerWidth < 880) {
                     sidebarNav.style.left = "0";
-                }else {
+                    directoryNode.style.left = "-100%";
+                }else if(window.innerWidth < 880 && directoryNode.style.left === "-100%"){
                     sidebarNav.style.left = "-100%";
+                    sidebarNav.style.left = "0";
                 }
 
             })

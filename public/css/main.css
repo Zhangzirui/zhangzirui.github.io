@@ -105,6 +105,7 @@ a:hover{
 .sidebar .nav-change{        /*针对post页面侧边栏的目录, 而目录的具体设置在下面*/
     text-align: center;
     line-height: 2rem;
+    width: 95%;
     color: #ffffff;
 }
 
@@ -131,7 +132,7 @@ a:hover{
 
 .sidebar li a:hover{
     text-decoration: none;
-    transform: scale(1.05);
+    font-size: 1.8rem;
     background-color: rgba(0,0,0,0.5);
     color: #eeeeee;
 }
@@ -139,7 +140,7 @@ a:hover{
 /*    侧边栏中的文章目录（post页面中）    */
 
 .directory-content{
-    padding: 1rem 0 1rem 0.5rem;
+    padding: 1rem 0 1rem 0rem;
     overflow: auto;
 }
 
