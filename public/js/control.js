@@ -4,19 +4,13 @@
 
 define(['unit'], function (unit) {
 
-    function goTop(){
-        if(!document.getElementById) return false;
-        if(!document.getElementById("goTop")) return false;
-        if(unit.getScroll().scrollTop > 100){
-            document.getElementById("goTop").style.display = "block";
-        }else{
-            document.getElementById("goTop").style.display = "none";
-        }
-    }
 
     /*    自执行事件    */   //（？？为什么如果绑定onload事件会有时候不执行？？）
     (function(){
         goTop();
+        showSmallMenu();
+
+
 
         /*如果页面中有pagination，则构建翻页组件*/
         if(document.getElementById("pagination")) {
@@ -74,7 +68,22 @@ define(['unit'], function (unit) {
 
 
 
-    unit.EventUnit.addHandler(window, "scroll", goTop);
+    unit.EventUnit.addHandler(window, "scroll", function() {
+        goTop();
+        showSmallMenu();
+    });
+
+    /*    menu点击事件    */
+
+    unit.EventUnit.addHandler(document.getElementsByClassName("smallMenu")[0], "click", function() {
+       var  menuContent = this.getElementsByClassName("smallMenu-content")[0];
+        if(menuContent.style.display === "none") {
+            menuContent.style.display = "block";
+        }else {
+            menuContent.style.display = "none";
+        }
+    });
+
 
     /*    elevator右侧边栏绑定事件    */
 
@@ -119,11 +128,12 @@ define(['unit'], function (unit) {
     //    });
     //}
 
-
     //回到顶部绑定事件
     unit.EventUnit.addHandler(document.getElementById("goTop").querySelector("i"), "click", function(){
         unit.scroll(0, 100);
     });
+
+
 
     /*    pay post页面底部打赏按钮绑定    */
     if(document.getElementsByClassName("pay-btn")[0]) {     //判断是否为post页面
@@ -142,4 +152,24 @@ define(['unit'], function (unit) {
         })
     }
 
+
+    function goTop(){
+        if(!document.getElementById) return false;
+        if(!document.getElementById("goTop")) return false;
+        if(unit.getScroll().scrollTop > 100) {
+            document.getElementById("goTop").style.display = "block";
+        }else {
+            document.getElementById("goTop").style.display = "none";
+        }
+    }
+
+
+    function showSmallMenu() {
+        if(!document.getElementsByClassName("smallMenu-icon")[0]) return false;
+        if(unit.getScroll().scrollTop > 47) {
+            document.getElementsByClassName("smallMenu-icon")[0].style.color = "#333";
+        }else{
+            document.getElementsByClassName("smallMenu-icon")[0].style.color = "#c0c0c0";
+        }
+    }
 });

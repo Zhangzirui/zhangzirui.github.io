@@ -137,6 +137,54 @@ a:hover{
     color: #eeeeee;
 }
 
+.sidebar .smallMenu{
+    display: none;
+    z-index: 10;
+    position: fixed;
+    top: 0rem;
+    left: 1rem;
+    cursor: pointer;
+}
+
+.sidebar .smallMenu i{
+    display: inline-block;
+    padding: 1rem;
+    font-size: 1.8rem;
+    color: #c0c0c0;
+}
+
+.sidebar .smallMenu-icon{
+    display: block;
+    width: 45px;
+    box-sizing: border-box;
+    background-color: rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.sidebar .smallMenu-content{
+    margin: 0;
+}
+
+.sidebar .smallMenu li+li{
+    border-top: 1px solid rgba(0,0,0,0.3);
+}
+
+.sidebar .smallMenu a{
+    display: block;
+    line-height: 2rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    padding: 0 5rem 0 2rem;
+    color: #dddddd;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.sidebar .smallMenu a:hover{
+    text-decoration: none;
+    font-size: 1.4rem;
+    background-color: rgba(0,0,0,0.6);
+    color: #4cae4c;
+}
 /*    侧边栏中的文章目录（post页面中）    */
 
 .directory-content{
@@ -232,38 +280,8 @@ a:hover{
         display: none;
     }
 
-    .sidebar .menu{
-        position: fixed;
-        top: 1rem;
-        left: 1rem;
-    }
-
-    .sidebar .menu i{
-        display: inline-block;
-        padding: 1rem;
-        font-size: 1.8rem;
-        color: #c0c0c0;
-    }
-
-    .sidebar .menu-icon{
+    .sidebar .smallMenu{
         display: block;
-        width: 45px;
-        box-sizing: border-box;
-        background-color: rgba(0,0,0,0.1);
-        border: 1px solid rgba(0,0,0,0.1);
-    }
-
-    .sidebar .menu li+li{
-        border-top: 1px dashed rgba(0,0,0,0.3);
-    }
-
-    .sidebar .menu a{
-        display: block;
-        line-height: 3rem;
-        font-size: 1.4rem;
-        font-weight: bold;
-        padding: 0 5rem 0 2rem;
-        background-color: rgba(0,0,0,0.1);
     }
 
     .sidebar .nav-change,
