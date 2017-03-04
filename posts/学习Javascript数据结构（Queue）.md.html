@@ -41,43 +41,90 @@
       </div>
     </section>
     <div class="container">
-      <section class="category">
-        <h2><i class="iconfont">&#xE60C;</i>&#x5206;&#x7C7B;&#x6807;&#x7B7E;</h2>
-        <div class="cat-tag"><a href="/tags/javascript">javascript</a><a href="/tags/数据结构">数据结构</a><a href="/tags/git">git</a><a href="/tags/Machine Learning">Machine Learning</a><a href="/tags/NodeJS">NodeJS</a><a href="/tags/blog">blog</a><a href="/tags/flask">flask</a>
-        </div>
-      </section>
       <div class="main">
-        <article class="post">
-          <h2>学习和使用git
-            <time>2016-10-30</time>
-          </h2>
-          <div class="post-content">
-            <div class="post-meta">
-              <ul>
-                <li><i class="iconfont">&#xE60E;</i></li>
-                <li><i class="iconfont">&#xE60C;</i><b>git</b>
-                </li>
-              </ul>
+        <article class="markdown"></p>
+
+<h2>学习Javascript数据结构（二）</h2>
+
+<h3>队列的创建</h3>
+
+<p>同样构造函数的方法，和栈很类似。</p>
+
+<pre><code>function Queue() {
+	var items = [];
+
+	/*创建方法*/
+
+	this.enqueue = function(element) {
+		items.push(element);
+	}
+
+	this.dequeue = function() {
+		return items.shift();
+	}
+
+	this.front = function() {
+		return items[0];
+	}
+
+	this.isEmpty = function() {
+		return items.length == 0;
+	} 
+
+	this.clear = function() {
+		items = [];
+	}
+
+	this.size = function() {
+		return items.length;
+	}
+
+	this.print = function() {
+		console.log(items.toString());
+	}
+}</code></pre>
+
+<h3>优先队列</h3>
+
+<p>优先队列其实是在队列里面给加了一个优先级序列，这样只需要对上面构建的队列里面的enqueue方法更改一下就可以了。</p>
+
+<pre><code>function PriorityQueue() {
+	var items = [];
+
+	function Queue(element, priority) {
+		this.element = element;
+		this.priority = priority;
+	} 
+
+	this.enqueue = function(element, priority) {
+		var queueELement = new Queue(element, priority);
+
+		if (this.isEmpty) {
+			items.push(queueElement);
+		} else {
+			var index = -1;
+			for (var i=0; i&lt;this.size; i++) {
+				if (queueELement.priority &lt; items[i].priority) {
+					index = i;
+					break;
+				}
+			}
+			if (index === -1) {
+				items.push(queueELement);
+			} else {
+				items.splice(index, 0, queueElement;	
+			}
+		}
+	}
+
+	//this....其他方法不变
+}</code></pre>
+          <div class="pay">
+            <div class="pay-content">
+              <p>如果这篇文章对你很有帮助，你可以犒劳一下WO</p><a class="pay-btn">打赏</a>
             </div>
-            <p class="post-abs">之前上传和克隆代码到github总是使用的github提供给window用户的可视化工具，现在觉得有些不妥。无论怎么样，使用命令行操作才是符合一个努力学习积极向上的准程序员身份，因此git学习流程就开始了。</p><a href="/posts/Document-17(git).md" class="post-more">Read more<i class="iconfont">&#xE60D;</i></a>
           </div>
         </article>
-        <article class="post">
-          <h2>如何将github仓库中的项目效果展现在github pages中
-            <time>2016-04-30</time>
-          </h2>
-          <div class="post-content">
-            <div class="post-meta">
-              <ul>
-                <li><i class="iconfont">&#xE60E;</i></li>
-                <li><i class="iconfont">&#xE60C;</i><b>blog</b><b>git</b>
-                </li>
-              </ul>
-            </div>
-            <p class="post-abs">众所周知github能托管代码，但是代码效果却不能直接展现出来。于是我准备在这个博客的demo中展示我已经完成或者将来将要完成的项目，那么问题来了...</p><a href="/posts/Document-2.md" class="post-more">Read more<i class="iconfont">&#xE60D;</i></a>
-          </div>
-        </article>
-        <div id="pagination"><a href="/tags/git/0" class="iconfont pre">&#xE60A;</a><a class="page-number">当前第1页 共1页</a><a href="/tags/git/2" class="iconfont next">&#xE60B;</a></div>
       </div>
       <div class="elevator">
         <ul>

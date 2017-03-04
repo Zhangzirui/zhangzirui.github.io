@@ -102,7 +102,7 @@
 .markdown p{
     text-indent: 2em;
     line-height: 20px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 /* LINKS
@@ -132,6 +132,13 @@
 .markdown ol li ul:first-of-type {
     margin-top: 0px;
 }
+
+.markdown li {
+    list-style: circle;
+    font-size: 16px;
+}
+
+
 
 .markdown ul ul, .markdown ul ol, .markdown ol ol, .markdown ol ul {
     margin-bottom: 0;
@@ -178,7 +185,7 @@
 =============================================================================*/
 
 .markdown pre, code, tt {
-    font-size: 12px;
+    font-size: 13px;
     font-family: Consolas, "Liberation Mono", Courier, monospace;
 }
 
@@ -200,13 +207,15 @@
 }
 
 .markdown pre {
-    background-color: #f8f8f8;
-    border: 1px solid #ccc;
-    font-size: 13px;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 14px;
     line-height: 19px;
     overflow: auto;
     padding: 6px 10px;
     border-radius: 3px;
+    color: #DDDDDD;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .markdown pre code, pre tt {

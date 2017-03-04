@@ -48,8 +48,6 @@
 
 <h3>前言</h3>
 
-<blockquote><p>2016-11-01</p></blockquote>
-
 <p>之前上传和克隆代码到github总是使用的github提供给window用户的可视化工具，现在觉得有些不妥。无论怎么样，使用命令行操作才是符合一个努力学习积极向上的准程序员身份，因此git学习流程就开始了。</p>
 
 <h3>git基本操作</h3>
@@ -59,20 +57,36 @@
 <pre><code># 进入所要存放仓库的文件夹，然后...
 git clone 仓库地址</code></pre>
 
-<h4>2. 设置用户名和邮箱，最好是全局设置，一劳永逸</h4>
+<h4>2. 设置用户名和邮箱</h4>
 
-<pre><code># 进入所克隆的仓库文件中，然后...
+<pre><code>最好是全局设置，一劳永逸
+
+# 进入所克隆的仓库文件中，然后...
 git config --global user.name &quot;yourName&quot;
 git config --global user.email &quot;yourEmail&quot;</code></pre>
 
 <h4>3. 理解git的三个区</h4>
 
 <ul><li>工作区</li><li>暂存区： 起到过渡作用，避免误操作，保护工作区和版本区</li><li><p>版本区</p><pre><code># 查看工作区的状态
-git status</code></pre><p>我克隆的是一个新的仓库，里面很干净，什么都没有。这时候向其中添加内容，然后...</p><pre><code>git status</code></pre><p>会发现系统提示了主分支（master）里面已经添加了部分文件,<strong>注意</strong>这时候这些文件全部都是存放在工作区中，接下来可以将这些文件从工作区提交到暂存区。</p><pre><code># 可以单独添加某个文件
+git status</code></pre></li></ul>
+
+<p>我克隆的是一个新的仓库，里面很干净，什么都没有。这时候向其中添加内容，然后...</p>
+
+<pre><code>git status</code></pre>
+
+<p>会发现系统提示了主分支（master）里面已经添加了部分文件,<strong>注意</strong>这时候这些文件全部都是存放在工作区中，接下来可以将这些文件从工作区提交到暂存区。</p>
+
+<pre><code># 可以单独添加某个文件
 git add app.js
 
 # 可以全部都提交
-git add .</code></pre><p>如果是在工作区修改了之前已提交到暂存区的文件，那么在修改后需要再次执行一次<code>git add  fileName</code>，将工作区修改的文件提交到暂存区并覆盖原文件。</p><p>最后把暂存区里面的文件提交到版本区。</p><pre><code># 下面代码中的“update”为注释，下同
+git add .</code></pre>
+
+<p>如果是在工作区修改了之前已提交到暂存区的文件，那么在修改后需要再次执行一次<code>git add  fileName</code>，将工作区修改的文件提交到暂存区并覆盖原文件。</p>
+
+<p>最后把暂存区里面的文件提交到版本区。</p>
+
+<pre><code># 下面代码中的“update”为注释，下同
 git commit -m &quot;update&quot;
 
 # 也可以一步到位，直接从工作区到版本区
@@ -83,7 +97,7 @@ git log
 
 # 可以为提交的版本打标签，tagNum为标签号
 git tag tagNum
-# 解释： 如果不加tagNum则可以查看已打好的标签</code></pre></li></ul>
+# 解释： 如果不加tagNum则可以查看已打好的标签</code></pre>
 
 <h4>4. 一些有用的命令</h4>
 

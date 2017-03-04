@@ -46,9 +46,11 @@
 
 <h2>总结自己编写原生JS总踩的坑</h2>
 
-<blockquote><p>这一篇会持续更新</p></blockquote>
+<p>对平时编写原生js总会放的错或者总会忘记的东西，记录下来。</p>
 
-<h3>document.compatMode产生的问题</h3>
+<blockquote><p>这一系列会持续更新</p></blockquote>
+
+<h3>document.compatMode</h3>
 
 <p>document.compatMode是用来判断当前浏览器的渲染模式，如下：</p>
 
@@ -64,6 +66,8 @@
 	alter(document.body.scrollTop)
 }</code></pre>
 
+<h4>产生的问题和解决办法</h4>
+
 <p>可是在实际使用过程中，<strong>这段代码在谷歌浏览器下是会出现错误</strong>的。（我自己就好几次被坑在这里了，所以踩坑后一定要总结总结再总结）</p>
 
 <p>在谷歌浏览器下，<code>document.compatMode==&#39;CSS1Compat&#39;</code>时，<code>document.documentElement.scrollTop</code>是<strong>等于0</strong>的，而<code>document.body.scrollTop</code>才是正确的值。同样有这个问题的还有<code>scrollLeft</code>。</p>
@@ -75,6 +79,131 @@
 }else{
 	alter(document.body.scrollTop)
 }</code></pre>
+
+<h3>mouseover与mouseout事件</h3>
+
+<h4>产生的问题</h4>
+
+<p>在原生使用<code>mouseover</code>与<code>mouseout</code>事件的时候很容易出错，因为很容易出现重复触发的问题。
+如以下代码：</p>
+
+<pre><code>//css部分：
+.box {
+	position: relative;
+	width: 400px;
+	height: 400px;
+	background-color: blue;
+}
+
+.content{
+	position: absolute;
+	left: 100px;
+	top: 100px;
+	width: 200px;
+	height: 200px;	
+	background-color: red;
+}
+
+
+//html部分：
+&lt;div class=&quot;box&quot;&gt;
+	&lt;p class=&quot;content&quot;&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+//js部分：
+var box = document.getElementsByClassName(&quot;box&quot;)[0];
+
+box.addEventListener(&quot;mouseover&quot;, function () {
+	console.log(&quot;box_mouseover&quot;);
+}, false) 
+box.addEventListener(&quot;mouseout&quot;, function () {
+	console.log(&quot;box_mouseout&quot;);
+}, false)</code></pre>
+
+<p>那么在鼠标移入绿色区域，也就是box区域的时候，<code>Console</code>弹出<code>box_mouseover</code>，可是当鼠标继续移入红色区域的时候，接着弹出<code>box_mouseout</code>和<code>box_mouseover</code>。同样当鼠标从红色区域又移入绿色区域的时候，<code>Console</code>弹出<code>box_mouseout</code>和<code>box_mouseover</code>。这样就出现了重复触发的现象。</p>
+
+<h4>原因</h4>
+
+<p>这个现象出现的原因，我的理解是这样的，当鼠标从绿色移入红色的时候，虽然红色区域被绿色包裹着，但是浏览器默认鼠标已经移除了绿色区域，所以触发弹出<code>box_mouseout</code>。可是与此同时鼠标也移入了红色区域，虽然红色区域，也就是content区域没有绑定<code>mouseover</code>事件，但是系统认为存在这个<code>mouseover</code>过程，只是由于该事件没有绑定任何函数，所以没有任何现象。但是红色区域的父级，也就是绿色区域绑定了<code>mouseover</code>事件，所以这个对红色区域的<code>mouseover</code>事件过程，冒泡到了父级，使得<code>Console</code>又弹出<code>box_mouseover</code>。</p>
+
+<h4>解决办法</h4>
+
+<p>解决办法就是对症下药，在绑定<code>mouseover</code>与<code>mouseout</code>事件的函数里面，判断一下是否是当前触发事件的是否是冒泡来的，即判断事件绑定对象是不是事件触发对象。</p>
+
+<blockquote><p>解释一下： 比如说鼠标从绿色区域移到红色区域，红色区域触发了<code>mouseover</code>,该事件冒泡到了绿色区域，由于绿色区域绑定了该事件函数，所以执行函数。这个过程中，事件绑定的对象为绿色区域，而事件触发对象是红色区域。</p></blockquote>
+
+<p><strong>实际上要阻止的不仅仅是冒泡</strong>。当鼠标从外界移入绿色区域时，我们往往要求只触发一次<code>box_mouseover</code>，之后无论鼠标在绿色区域还是红色区域中移动，只要不出去，那么就什么都不触发。可是我们发现当从绿色移入红色时，会触发<code>box_mouseout</code>，这个是正常出现的，不是冒泡什么的，但是我们仍然需要去阻止。</p>
+
+<p>这里用到两个知识点，感觉我平常用的很少。</p>
+
+<ol><li><p><code>relatedTarget</code>，<code>fromElement</code>和<code>toElement</code></p><p>对于<code>mouseover</code>事件来说，该属性是鼠标指针移到目标节点上时所离开的那个节点。</p><p>对于<code>mouseout</code>事件来说，该属性是离开目标时，鼠标指针进入的节点。</p><p>对于<code>mouseover</code>和<code>mouseout</code>，<code>fromElement</code>表示移出鼠标的元素，<code>toElement</code>表示移入鼠标的元素。</p></li><li><p><code>compareDocumentPostion()</code></p><p>该方法用来判断节点间的关系，具体参考<a href="http://www.w3school.com.cn/jsref/met_node_comparedocumentposition.asp">W3school</a>。</p><p>通过<code>compareDocumentPosition()</code>和<code>contains()</code>两个方法来构建函数：</p><pre><code>/**
+ * 判断所检测的节点是不是参考节点的子节点
+ * @ refNode  参考节点
+ * @ testNode  参考节点
+ */
+function contains(refNode, testNode) {
+	if (refNode.contains) {
+		return refNode.contains(testNode) &amp;&amp; (refNode !== testNode);
+		// 同一个节点使用contains会返回true，比如 node1.contains(node1) 为真
+		// 所以要逻辑与上一个refNode !== testNode
+
+	}else if (refNode.compareDocumentPosition) {
+		return !!(refNode.compareDocumentPosition(testNode) &amp; 16);
+		// 若待测节点是参考节点的子节点，那么compareDocumentPostion()返回16
+		// 16与自身按位与返回一个非零数字，而两个逻辑非会将其操作值转换成布尔值。
+
+	}else {
+		var node = testNode.parentNode;
+		do{
+			if (refNode === node) {
+				return true;
+			}else {
+				node = node.parentNode;
+			}
+		}while(node !== null)
+		return false;
+	}
+}</code></pre></li></ol>
+
+<p>那么检测函数可以写成：</p>
+
+<pre><code>/**
+ * 检测事件触发对象是不是事件绑定对象
+ * (只针对mouseover与mouseout)
+ * e 事件
+ * target 事件绑定对象
+ */
+
+function check(e, target) {
+	var e = e || window.e;
+	if (e.type === &quot;mouseover&quot;) {
+		return !(contains(target, e.relatedTarget||e.fromElement)) &amp;&amp; !((e.relatedTarget||e.fromElement) === target)
+		// 其中前半部分!(contains(target, e.relatedTarget||e.fromElement))阻止的是正常触发
+		// 比如从红色移入绿色，正常触发mouseover，这个时候contains为真，加一个逻辑非就为假。
+		// 其中后半部分!((e.relatedTarget||e.fromElement) === target)阻止的是冒泡
+
+	}else if (e.type === &quot;mouseout&quot;) {
+		return !(contains(target, e.relatedTarget||e.toElement)) &amp;&amp; !((e.relatedTarget||e.toElement) === target)
+	}
+
+}</code></pre>
+
+<p>那么最上面，也就是<strong>产生问题</strong>里面的js代码可以写成如下形式</p>
+
+<pre><code>//js部分：
+var box = document.getElementsByClassName(&quot;box&quot;)[0];
+
+box.addEventListener(&quot;mouseover&quot;, function (e) {
+	if (check(e, this)) {
+		console.log(&quot;box_mouseover&quot;);
+	}
+}, false) 
+box.addEventListener(&quot;mouseout&quot;, function (e) {
+	if (check(e, this)) {
+		console.log(&quot;box_mouseout&quot;);
+	}
+}, false)</code></pre>
           <div class="pay">
             <div class="pay-content">
               <p>如果这篇文章对你很有帮助，你可以犒劳一下WO</p><a class="pay-btn">打赏</a>

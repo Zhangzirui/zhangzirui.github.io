@@ -364,6 +364,7 @@ a:hover{
 
 .post h2 time,
 .demo h2 time{
+    display: inline-block;
     position: absolute;
     left: -8rem;
     font-size: 1.4rem;
@@ -449,6 +450,7 @@ a:hover{
     }
 
     .post h2 time{
+        line-height: 1.4rem;
         position: static;
         margin-left: 2rem;
         font-size: 1.2rem;
@@ -482,6 +484,7 @@ a:hover{
         position: static;
         margin-left: 2rem;
         font-size: 1.2rem;
+        line-height: 1.2rem;
     }
 }
 
@@ -650,8 +653,8 @@ footer p{
     padding: 0 2rem;
     width: 100%;
     height: 100%;
-    top: 17rem;
-    line-height: 2.5rem;
+    top: 19rem;
+    line-height: 3rem;
     font-size: 1.4rem;
     box-sizing: border-box;
     transition: all 0.5s linear;
