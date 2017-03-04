@@ -67,7 +67,7 @@ a:hover{
     height: 100%;
     overflow: auto;
     background: url(../img/sidebar-bg.jpg) no-repeat;
-    background-size: auto;
+    background-size: cover;
     background-position: 0 29%;
     background-attachment: fixed;
     box-shadow: 1px 1px 6px 2px #262626;
@@ -635,7 +635,7 @@ footer p{
     display: inline-block;
     position: relative;
     margin: 1.5rem;
-    width: 18rem;
+    width: 17rem;
     height: 22rem;
     border: 1px solid rgba(0,0,0,2);
     overflow: hidden;
