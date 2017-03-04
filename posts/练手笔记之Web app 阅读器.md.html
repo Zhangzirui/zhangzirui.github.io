@@ -126,8 +126,8 @@ xhr.send(null);</code></pre>
 
 <p>但是如果是获取同源的页面内容，就毫无问题了，比如同样是 http://localhost:63342/ 下的页面</p>
 
-<p>xhr.open(&quot;get&quot;, &quot;http://localhost:63342/test/web%20app/zzr_reader.html&quot;, true);
-xhr.send(null);</p>
+<pre><code>xhr.open(&quot;get&quot;, &quot;http://localhost:63342/test/web%20app/zzr_reader.html&quot;, true);
+xhr.send(null);</code></pre>
 
 <p>因此为了成功跨域，可以使用一些其他方法，比如<code>&lt;script&gt;</code>标签，代码如下：</p>
 
