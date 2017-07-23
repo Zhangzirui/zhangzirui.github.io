@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <title>Zzr blog</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- build:css /public/css/combined.css-->
+    <link rel="stylesheet" href="/public/css/normalize.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/unit.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/markdown.css" type="text/css">
+    <!-- endbuild-->
+  </head>
+  <body>
+    <!--if lte IE 8
+    p.browser-upgrade
+      | &#x60A8;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x7248;&#x672C;&#x90FD;&#x8001;&#x7684;&#x6389;&#x7259;&#x5566;&#xFF0C;&#x8BF7;&#x5230;
+      a(href='http://browsehappy.com') &#x8FD9;&#x91CC;
+      | &#x66F4;&#x65B0;&#xFF0C;&#x4EE5;&#x83B7;&#x53D6;&#x6700;&#x4F73;&#x4F53;&#x9A8C;
+    -->
+    <section class="sidebar">
+      <div class="header"><img src="/public/img/sidebar-brand.jpg" alt="brand" class="header-brand">
+        <h1 class="header-name">Zzr&#x7684;&#x535A;&#x5BA2;</h1>
+      </div>
+      <nav class="main">
+        <ul>
+          <li class="active"><a href="/" title="博客首页"><i class="iconfont">&#xE600;</i><span>home</span></a></li>
+          <li><a href="/demos/demo" title="小的demo"><i class="iconfont">&#xE603;</i><span>demo</span></a></li>
+          <li><a href="#" title="关于"><i class="iconfont">&#xE612;</i><span>about</span></a></li>
+          <li><a href="https://github.com/Zhangzirui/" title="我的github"><i class="iconfont">&#xE611;</i><span>github</span></a></li>
+        </ul>
+      </nav>
+      <div class="smallMenu"><i class="iconfont smallMenu-icon">&#xE606;</i>
+        <ul style="display: none" class="smallMenu-content">
+          <li class="active"><a href="/" title="博客首页"><i class="iconfont">&#xE600;</i><span>home</span></a></li>
+          <li><a href="/demos/demo" title="小的demo"><i class="iconfont">&#xE603;</i><span>demo</span></a></li>
+          <li><a href="#" title="关于"><i class="iconfont">&#xE612;</i><span>about</span></a></li>
+          <li><a href="https://github.com/Zhangzirui/" title="我的github"><i class="iconfont">&#xE611;</i><span>github</span></a></li>
+        </ul>
+      </div>
+    </section>
+    <div class="container">
+      <div class="main">
+        <article class="markdown"></p>
+
+<h2>搞清楚文件上传</h2>
+
+<p>问一个同学面经，其中有一个问题是如何上传图片。听到这个问题，当时我脑子里面想到了FormData，可是具体怎么去写，好像不知道，因为从来没去写过。所以就有了这篇笔记。</p>
+
+<h3><code>&lt;input type=&quot;file&quot;&gt;</code></h3>
+
+<p>图片也是文件，所以就可以利用 <code>&lt;input type=&quot;file&quot;&gt;</code>标签来上传图片。在<a href="http://www.w3school.com.cn/jsref/dom_obj_fileupload.asp">w3school文档</a>中这么解释：  在HTML文档中<code>&lt;input type=&quot;file&quot;&gt;</code>标签每出现一次，一个FileUpload对象就会被创建。</p>
+
+<pre><code>// html
+&lt;input type=&quot;file&quot; class=&quot;file&quot;&gt;
+
+// js
+let filesDom = document.querySelector(&#39;.file&#39;);
+console.log(fileDom.files);	// 返回类数组对象，对象里面包含input标签所选文件
+let file = fileDom.files[0];
+// file对象上有三个属性 name, size, type </code></pre>
+
+<p>此时，fileDom.files数组中只包含一个文件，因为<code>&lt;input type=&quot;file&quot;&gt;</code>标签只能选择一个文件，如果想选择多个，则可以加上multiple属性：</p>
+
+<pre><code>&lt;input type=&quot;file&quot; class=&quot;file&quot; multiple&gt;</code></pre>
+
+<h3>文件上传</h3>
+
+<h4>常规方法</h4>
+
+<p>常规，那就是表单上传了：</p>
+
+<pre><code>&lt;form action=&quot;/upload_0&quot; class=&quot;form_0&quot; enctype=&quot;multipart/form-data&quot; method=&quot;post&quot;&gt;
+    &lt;input type=&quot;file&quot; class=&quot;file&quot;&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn&quot;&gt;上传&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+<p>这个办法现在很少使用了，因为会发生页面跳转呀，用户体验得多差，现在都是无刷新上传。</p>
+
+<h4>借用隐藏的<code>iframe</code></h4>
+
+<p>还是正常表单上传的逻辑，只是在<code>form</code>标签里面添加<code>target</code>属性。这个<code>target</code>属性和<code>a</code>标签的用法是一样的。这里我们让<code>target=&quot;framename&quot;</code>，这样form表单提交后就会在<code>iframe</code>中打开，而<code>iframe</code>标签被我们给隐藏了，所以看起来就像是无刷新上传了。</p>
+
+<pre><code> &lt;form action=&quot;/upload_1&quot; class=&quot;form_1&quot; enctype=&quot;multipart/form-data&quot; method=&quot;post&quot; target=&quot;hide&quot;&gt;
+    &lt;input type=&quot;file&quot; class=&quot;file1&quot; name=&quot;file1&quot;&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn1&quot;&gt;使用隐藏iframe实现上传&lt;/button&gt;
+&lt;/form&gt;
+&lt;iframe name=&quot;hide&quot; frameborder=&quot;0&quot; style=&quot;display: none&quot;&gt;&lt;/iframe&gt;</code></pre>
+
+<p>但是利用iframe有一些问题，就是我们无法得到上传的进度信息，如果不做任何处理的话，好像什么都没有发生，用户会不知道发生了什么（我是谁...我在哪里...我做了什么...）。</p>
+
+<p>所以我们必须在后台做出一个处理，那就是上传成功后，iframe得调用top框架中已写好的方法，来告诉用户上传成功。</p>
+
+<p>但是我们也仅仅能得到最后成功的消息，至于过程是无法反馈用户的。所以就又有了新的方法。</p>
+
+<h4><code>XMLHttpRequest Level 2</code>异步上传</h4>
+
+<p><code>XMLHttpRequest Level 2</code>具有完善的进度事件，且支持FormData数据类型，使得上传文件可以不通过表单元素，而是通过new一个
+FormData数据类型即可。</p>
+
+<pre><code>// html
+&lt;div class=&quot;form_2&quot;&gt;
+    &lt;input type=&quot;file&quot; class=&quot;file2&quot; name=&quot;file2&quot; multiple&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn2&quot;&gt;使用xhr2实现上传&lt;/button&gt;
+&lt;/div&gt;
+
+// js
+let formData = new FormData(),
+    fileDom = document.querySelector(&#39;.file2&#39;);
+fileDom.files[Symbol.iterator] = Array.prototype;[Symbol.iterator];
+for (let file of fileDom.files) {
+    formData.append(`files2`, file, file.name);
+}</code></pre>
+
+<p>通过以上代码，就可以将所选的文件数据全部加入formData中。</p>
+
+<p>其次<code>XMLHttpRequest Level 2</code>支持<code>loadstart, progress, err, load, abort, loadend</code>事件，这些事件针对的是接收信息的进度。而上传信息的进度在相应upload属性中，这六个事件在upload属性中也均存在。</p>
+
+<blockquote><p>在这里值得注意的是编写上传进度条事件的时候，一定是<code>xhr.upload.onprogress = function () {}</code>;</p></blockquote>
+
+<h3>其他</h3>
+
+<h4>进行图片预览</h4>
+
+<p>如果上传的文件是图片的话，往往就会有预览功能，传统的方法时后台返回src地址给图片，而更方便的方法就是使用<code>FileReader API</code>。</p>
+
+<pre><code>// html
+&lt;div class=&quot;form_3&quot;&gt;
+     &lt;input type=&quot;file&quot; class=&quot;file3&quot; name=&quot;file3&quot; accept=&quot;image/*&quot;&gt;
+&lt;/div&gt;
+
+
+// js
+let file3 = document.querySelector(&#39;.file3&#39;);
+file3.onchange = function () {
+	if (file3.files[0] !== undefined &amp;&amp; typeof FileReader !== &#39;undefined&#39;) {
+		preview(file3.files[0]);
+	}
+};
+
+function preview (file) {
+	const pattern = /image\/[png|jpeg|gif]/;
+	if (pattern.test(file.type)) {
+		let fileRead = new FileReader();
+		fileRead.onload = function (event) {
+			let img = new Image();
+			img.src = event.target.result;
+			img.className = &#39;imgStyle&#39; 	// 自己设置样式；
+			document.body.appendChild(img);
+		}
+		fileRead.readAsDataURL(file);
+	}
+}</code></pre>
+
+<p>关于详细的<code>FileReader API</code>可参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader#readAsDataURL()">该链接</a>。</p>
+
+<h4>文件拖拽</h4>
+
+<p>除了通过触发<code>&lt;input type=&quot;file&quot;&gt;</code>以外，现在很多上传效果还支持拖拽上传。</p>
+
+<p>拖拽元素时，依次触发 <code>dragstart, drag, dragend</code> 事件；</p>
+
+<p>拖拽元素放到目标位置时，目标位置依次触发 <code>dragenter, dragoverm, drop</code> 事件</p>
+
+<pre><code>// html
+&lt;div class=&quot;form_3&quot;&gt;
+	&lt;span class=&quot;imgBox&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;	
+
+// js
+let imgBox = document.querySelector(&#39;.imgBox&#39;);
+
+imgBox.addEventListener(&#39;dragenter&#39;, dragEvent, false);
+imgBox.addEventListener(&#39;dragover&#39;, dragEvent, false);
+imgBox.addEventListener(&#39;drop&#39;, dropEvent, false);
+
+function dragEvent (e) {
+	e.preventDefault();		// 某些元素默认不允许放置，阻止默认操作，使得其可放置
+	e.stopPropagation();
+	imgBox.className = &#39;XXX&#39; //修改样式，表明正在往里拖拽
+}
+
+function dropEvent (e) {
+	e.preventDefault();		// 阻止页面跳转
+	e.stopPropagation();
+	let file = e.dataTransfer.files[0];
+	preivew(file) 
+}</code></pre>
+
+<h3>demo</h3>
+
+<p>文章所有demo的源代码在此</p>
+
+<p>参考链接：</p>
+
+<ul><li>[link<em>1](https://developer.mozilla.org/zh-CN/docs/Using</em>files<em>from</em>web<em>applications#例子：</em>使用对象URL来显示图片)</li><li>[link<em>2](http://www.ruanyifeng.com/blog/2012/08/file</em>upload.html)</li></ul>
+          <div class="pay">
+            <div class="pay-content">
+              <p>如果这篇文章对你很有帮助，你可以犒劳一下WO</p><a class="pay-btn">打赏</a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="elevator">
+        <ul>
+          <li id="goTop" title="返回顶部"><i class="iconfont">&#xE605;</i></li>
+        </ul>
+      </div>
+      <footer>
+        <p class="copyright">Copyright &copy; Zhangzirui</p>
+      </footer>
+    </div>
+    <script type="text/javascript" src="/public/js/require.js" data-main="/public/js/main.js"></script>
+  </body>
+</html>
